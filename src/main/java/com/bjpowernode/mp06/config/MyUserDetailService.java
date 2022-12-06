@@ -49,7 +49,7 @@ public class MyUserDetailService implements UserDetailsService {
             rr.addAll(roles);
         }
         user.setRoles(rr);
-//返回用户信息
+        //返回用户信息
         return user;
     }
 }

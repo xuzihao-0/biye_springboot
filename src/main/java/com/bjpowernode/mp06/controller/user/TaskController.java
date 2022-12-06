@@ -1,6 +1,6 @@
 package com.bjpowernode.mp06.controller.user;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -8,7 +8,7 @@ import com.bjpowernode.mp06.entity.Achievement;
 import com.bjpowernode.mp06.entity.DeletedTask;
 import com.bjpowernode.mp06.entity.OngoingTask;
 import com.bjpowernode.mp06.entity.SysDayFinished;
-import com.bjpowernode.mp06.mapper.OngoingTaskMapper;
+
 import com.bjpowernode.mp06.service.IAchievementService;
 import com.bjpowernode.mp06.service.IDeletedTaskService;
 import com.bjpowernode.mp06.service.IOngoingTaskService;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.w3c.dom.ls.LSInput;
 
-import javax.print.attribute.HashAttributeSet;
+
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -113,11 +113,22 @@ public class TaskController {
 
 
     @PostMapping("add_task")
-    public int insertTask(OngoingTask ongoingTask) {
+    public int insertTask(@RequestBody OngoingTask ongoingTask) {
         //用户添加任务
 //        LocalDate now = LocalDate.now();
 //        LocalDate date = now.plusDays(21);
 //        System.out.println(now+"   "+date);
+
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(ongoingTask.getBeginDay());
+        System.out.println(ongoingTask);
+        long c =ongoingTask.getEndDay().toEpochDay()-ongoingTask.getBeginDay().toEpochDay();
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(ongoingTask.getBeginDay());
+        System.out.println(ongoingTask.getEndDay());
+        System.out.println(c);
+        ongoingTask.setTaskDay((int) c);
+        ongoingTask.setTag(1);
         int i = iOngoingTaskService.insertTask(ongoingTask);
         return i;
     }
@@ -162,6 +173,7 @@ public class TaskController {
     @PostMapping("update_task")
     public boolean update(@RequestBody OngoingTask ongoingTask) {
         if (ongoingTask.getTag() == 2) {
+
             //即已经完成,需要在sys_day_finished中记录一下
             LocalDate now = LocalDate.now();
             System.out.println("``````````````````````````");
@@ -210,6 +222,12 @@ public class TaskController {
         }
         boolean b = iOngoingTaskService.updateById(ongoingTask);
         return b;
+    }
+    @GetMapping("hhhhhhhhhhhhhhhh")
+    public List<OngoingTask> fdsfdsf(Integer uid){
+        List<OngoingTask> goTask = iOngoingTaskService.getGoTask(uid);
+        return goTask;
+
     }
 
 

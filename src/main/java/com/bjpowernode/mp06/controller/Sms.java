@@ -1,8 +1,11 @@
 package com.bjpowernode.mp06.controller;
 
+import com.bjpowernode.mp06.service.SmsService;
 import com.bjpowernode.mp06.util.HttpUtils;
 import org.apache.http.HttpResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -15,6 +18,8 @@ import java.util.Map;
  */
 @RestController
 public class Sms {
+    @Autowired
+    private SmsService smsService;
     @GetMapping("register/testhh")
     public int test(){
         String host = "https://jumsendsms.market.alicloudapi.com";
@@ -52,6 +57,13 @@ public class Sms {
 
 
         return 0;
+    }
+    @PostMapping("testSms")
+    public String send(String telephone,String message){
+        int i = smsService.SendMessage(telephone, message);
+        if(i==1)
+            return "信息已经发送成功";
+        return "信息发送失败，请检查";
     }
 
 }

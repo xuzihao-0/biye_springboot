@@ -3,6 +3,8 @@ package com.bjpowernode.mp06.service;
 import com.bjpowernode.mp06.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -16,4 +18,5 @@ public interface IUserService extends IService<User> {
     int register(User user);
 
     int changeUser(String name, String password, String telephone, Integer uid);
+    List<Integer> findAll();
 }

@@ -7,10 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.support.CustomSQLErrorCodesTranslation;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author xuzihao
@@ -32,7 +31,11 @@ public class UserController {
         int  i =  userService.changeUser(user.getName(),encode1,user.getTelephone(),user.getUid()) ;
         return  i;
     }
-
+    @GetMapping("testList")
+    public List<Integer> test(){
+        List<Integer> all = userService.findAll();
+        return all;
+    }
 
 
 

@@ -25,6 +25,8 @@ public interface IOngoingTaskService extends IService<OngoingTask> {
     int updateTask(OngoingTask ongoingTask);
 
     List<OngoingTask> getGoingTask(HashMap<String, Object> map);
+    List<OngoingTask> getGoTask(int uid);
+
 
     int getTotal(Integer uid,Integer tag);
 }

@@ -32,11 +32,20 @@ public class OngoingTaskServiceImpl extends ServiceImpl<OngoingTaskMapper, Ongoi
     @Autowired
     private DeletedTaskMapper deletedTaskMapper;
 
+
     @Override
     public List<OngoingTask> selectByUid(Integer id) {
         //根据id 查询用户的所有任务包括已经完成 未完成的任务
         HashMap<String, Object> map = new HashMap<>();
         map.put("uid", id);
+        List<OngoingTask> ongoingTasks = ongoingTaskMapper.selectByMap(map);
+        return ongoingTasks;
+    }
+    public List<OngoingTask> selectByUidUnSucess(Integer id) {
+        //根据id 查询用户的所有任务包括已经完成 未完成的任务
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uid", id);
+        map.put("tag", 1);
         List<OngoingTask> ongoingTasks = ongoingTaskMapper.selectByMap(map);
         return ongoingTasks;
     }
@@ -114,4 +123,15 @@ public class OngoingTaskServiceImpl extends ServiceImpl<OngoingTaskMapper, Ongoi
         List<OngoingTask> ongoingTasks = ongoingTaskMapper.selectByMap(map);
         return ongoingTasks;
     }
+
+    @Override
+    public List<OngoingTask> getGoTask(int uid) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uid", uid);
+        map.put("tag", 1);
+        List<OngoingTask> task = getGoingTask(map);
+        return task;
+    }
+
+
 }

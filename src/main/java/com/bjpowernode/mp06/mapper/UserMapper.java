@@ -4,6 +4,8 @@ import com.bjpowernode.mp06.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -15,4 +17,5 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper extends BaseMapper<User> {
 
     int change(@Param("username") String name,@Param("password") String password, @Param("telephone") String telephone, @Param("id") Integer uid);
+    List<Integer> findAll();
 }

@@ -50,7 +50,7 @@ public class MailController {
     }
 
     @GetMapping("mail")
-    public String senfMail() {
+    public String sendfMail(String text,String mail) {
         //纯文本邮件
         SimpleMailMessage message = new SimpleMailMessage();
         // 设置邮件主题
@@ -59,16 +59,16 @@ public class MailController {
         message.setFrom("1186004722@qq.com");
         // 设置邮件接收者，可以有多个接收者，中间用逗号隔开，以下类似
         // message.setTo("10*****16@qq.com","12****32*qq.com");
-        message.setTo("2103325578@qq.com");
+        message.setTo(mail);
         // 设置邮件抄送人，可以有多个抄送人
 //        message.setCc("2103325578qq.com");
         // 设置隐秘抄送人，可以有多个
 
         // 设置邮件发送日期
-        message.setSubject("ceshi");
+        message.setSentDate(new Date());
 
         // 设置邮件的正文
-        message.setText("我叫徐梓皓");
+        message.setText(text);
         // 发送邮件
         javaMailSender.send(message);
         return "done!!!!!!!!!!";
@@ -80,7 +80,6 @@ public class MailController {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         // true表示构建一个可以带附件的邮件对象
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-
         helper.setSubject("这是一封测试邮件");
         helper.setFrom("1186004722@qq.com");
         helper.setTo("1186004722@qq.com");
@@ -89,7 +88,8 @@ public class MailController {
         helper.setSentDate(new Date());
         helper.setText("这是测试邮件的正文");
         // 第一个参数是自定义的名称，后缀需要加上，第二个参数是文件的位置
-        helper.addAttachment("个人照片.jpg", new File("C:/Users/MI/Desktop/个人/个人证件照/个人照片.jpg"));
+        helper.addAttachment("个人照片.jpg", new File("C:/Users/MI/" +
+                "Desktop/个人/个人证件照/个人照片.jpg"));
         javaMailSender.send(mimeMessage);
         return "dome!!!!!";
     }

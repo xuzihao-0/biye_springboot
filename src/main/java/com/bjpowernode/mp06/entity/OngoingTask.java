@@ -42,11 +42,13 @@ public class OngoingTask implements Serializable {
      * 任务类型
      */
     private Integer typeId;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern ="yyyy-MM-dd")
     private LocalDate beginDay;
 
     private Integer taskDay;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE,pattern ="yyyy-MM-dd")
     private LocalDate  endDay;
 
     /**

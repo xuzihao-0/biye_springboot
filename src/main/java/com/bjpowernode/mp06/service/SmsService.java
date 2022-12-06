@@ -1,6 +1,7 @@
 package com.bjpowernode.mp06.service;
 
 import com.bjpowernode.mp06.util.HttpUtils;
+import jdk.jfr.MemoryAddress;
 import org.apache.http.HttpResponse;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,12 @@ import java.util.Map;
  */
 @Service
 public class SmsService {
+    public int SendDetail(String phone){
+
+        return 0;
+    }
 
     public int SendMessage(String phone,String message){
-
         //短信验证码功能
         String host = "https://jumsendsms.market.alicloudapi.com";
         String path = "/sms/send-upgrade";
@@ -26,12 +30,10 @@ public class SmsService {
         //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
         headers.put("Authorization", "APPCODE " + appcode);
         Map<String, String> querys = new HashMap<String, String>();
-        querys.put("mobile", "18758860965");
+        querys.put("mobile", phone);
         querys.put("templateId", "M72CB42894");
-        querys.put("value", "114567");
+        querys.put("value", message);
         Map<String, String> bodys = new HashMap<String, String>();
-
-
         try {
             /**
              * 重要提示如下:
@@ -42,14 +44,15 @@ public class SmsService {
              * 相应的依赖请参照
              * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
              */
-            HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
+            HttpResponse response = HttpUtils.doPost(host, path, method,
+                    headers, querys, bodys);
             System.out.println(response.toString());
+            System.out.println("短信已经发送");
             //获取response的body
             //System.out.println(EntityUtils.toString(response.getEntity()));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return 1;
     }
 }

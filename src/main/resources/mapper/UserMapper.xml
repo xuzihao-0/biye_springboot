@@ -5,5 +5,7 @@
     <update id="change">
         update user set username=#{username},password=#{password},telephone=#{telephone} where id = #{id}
     </update>
-
+    <select id="findAll" resultType="int">
+        select id from user
+    </select>
 </mapper>

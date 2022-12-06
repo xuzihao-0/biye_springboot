@@ -13,6 +13,7 @@ public class DisposableBean implements org.springframework.beans.factory.Disposa
     public void destroy() throws Exception {
         //spring boot 应用关闭后需要清理在线人数 置为0 存储在redis中
         redisTemplate.opsForValue().set("online_count", "0");
+        System.out.println("应用程序已关闭");
 
     }
 }
